@@ -1,1 +1,1 @@
-# JFLAP-Group
+# WebFlap
