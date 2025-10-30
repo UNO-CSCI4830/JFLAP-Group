@@ -1,6 +1,68 @@
 import { useState } from 'react';
 import './Grammars.css';
 
+class Production{
+  lhs: string
+  rhs: string
+  constructor(lhs: string, rhs: string){
+    this.lhs = lhs
+    this.rhs = rhs
+  }
+
+  getVariables(): string[]{
+    const vars: string[] = []
+    const regex = /[A-Z]/g
+    let match
+
+    //check the LHS
+    while ((match = regex.exec(this.lhs)) !== null){
+      if(!vars.includes(match[0])){
+        vars.push(match[0])
+      }
+    }
+
+    //check the RHS
+    regex.lastIndex = 0
+    while((match = regex.exec(this.rhs)) !== null){
+      if(!vars.includes(match[0])){
+        vars.push(match[0])
+      }
+    }
+
+    return vars;
+  }
+
+  getTerminals(): string[]{
+    const terminals: string[] = []
+    const chars = this.rhs.split('')
+    chars.forEach(char => {
+      if(char !== 'ε' && /[a-z0-9]/.test(char)) {
+        if (!terminals.includes(char)){
+          terminals.push(char)
+        }
+      }
+    })
+
+    return terminals
+  }
+
+  //Combines the left and right strings to output a single producution line
+  toString(): string{
+    return `${this.lhs}→${this.rhs}`
+  }
+
+  equal(other: Production){
+    return other.lhs === this.lhs && other.rhs === this.rhs
+  }
+
+  isEpsilonProduction(){
+    return this.rhs === 'ε' || this.rhs === ''
+  }
+
+
+}
+
+
 function Grammars() {
   const [productions, setProductions] = useState([
     { id: 1, lhs: '', rhs: '' },
