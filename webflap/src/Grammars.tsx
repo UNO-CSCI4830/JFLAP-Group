@@ -59,6 +59,40 @@ class Production{
     return this.rhs === 'ε' || this.rhs === ''
   }
 
+}
+
+abstract class Grammar{
+
+  variables: Set<string>
+  terminals: Set<string>
+  startVariable: string
+  production: never[]
+
+  constructor(){
+    this.variables = new Set()
+    this.terminals = new Set()
+    this.startVariable = ""
+    this.production = []
+  }
+
+  abstract isConverted(): boolean
+  abstract checkProduction(production: Production): void
+
+  getStartVariable(): string | null{
+    return this.startVariable
+  }
+  setStartVariable(variable: string): void{
+    this.startVariable = variable
+  }
+
+  isValidProduction(production: Production): boolean{
+  try{
+    (this.checkProduction(production))
+    return true
+  } catch(e){
+    return false
+  }
+}
 
 }
 
