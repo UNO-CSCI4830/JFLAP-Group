@@ -69,6 +69,7 @@
   font-size: 14px;
   color: #374151;
   transition: background-color 0.15s;
+  position: relative; /* so submenus can be positioned relative to each option */
 }
 
 .menu-option:hover {
@@ -82,6 +83,30 @@
 
 .menu-option:last-child {
   border-radius: 0 0 4px 4px;
+}
+
+/* Submenu (nested) */
+.submenu {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.12);
+  min-width: 200px;
+  margin-left: 6px;
+  z-index: 1200;
+  border-radius: 4px;
+}
+
+.submenu .menu-option {
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+.submenu .menu-option:hover {
+  background-color: #f3f4f6;
+  color: #2563eb;
 }
 
 .editor-section {
